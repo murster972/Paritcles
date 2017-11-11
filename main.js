@@ -21,7 +21,7 @@ function setup(){
 }
 
 function draw(){
-    background(0);
+    background(39,54,59);
 
     for(let i = particles.length - 1; i >= 0; i--){
         particles[i].update(mouse_pos.x, mouse_pos.y);
@@ -39,8 +39,8 @@ function mouseMoved(){
 //returns an array containgin n grouped particles
 function createParticleGroup(n){
     var p = [];
-    var size = 80;
-    var spacing = size + 10;
+    var size = 50;
+    var spacing = size + 2
 
     var grid_size = spacing * n;
     var start = {x: (window.innerWidth - grid_size) / 2, y: (window.innerHeight - grid_size) / 2}
@@ -65,6 +65,10 @@ function Particle(x, y, d, id){
     this.diameter = d;
     this.radius = d / 2;
 
+    //only if strokeWeight
+    this.radius -= 1;
+    this.diameter -= 2;
+
     this.id = id;
 
     //velocity of particle
@@ -80,13 +84,16 @@ function Particle(x, y, d, id){
     this.alpha = 200;
 
     this.show = function(){
-        noStroke();
+        // noStroke();
+        strokeWeight(2);
+
+        stroke(255);
 
         if(this.vel.v == 0 && this.vel.h == 0){
-            fill(255, this.alpha);
+            fill(205, 70, 92, this.alpha);
         }
         else{
-            fill(255, 0, 0, this.alpha);
+            fill(205, 70, 92, this.alpha);
         }
 
         ellipse(this.pos.x, this.pos.y, this.diameter);
@@ -108,7 +115,6 @@ function Particle(x, y, d, id){
                 this.vel.h = 0;
             }
         }
-
 
         this.pos.x += this.vel.h;
         this.pos.y += this.vel.v;
